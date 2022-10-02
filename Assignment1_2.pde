@@ -7,7 +7,7 @@ int[] temp, days, surv, div;
 PFont f;
 
 void setup() {
-  size(1799, 1272);
+  size(1125, 795);
   
   table = loadTable("minard-data.csv", "header");
   N = table.getRowCount();
@@ -52,65 +52,42 @@ void setup() {
   }
   
   f = createFont("Arial",16,true);
-  for (int i = 0; i < 48; i++) {
-    print(dir[i]);
-  }
 }
 
 void draw() {
-  background(255);
   draw_survivors(); //<>//
-  stroke(0);
-  strokeWeight(10);
-  draw_cities();
 }
 
-void draw_cities() {
-  for (int i = 0; i < 21; i++) {
-    point(((lonc[i]-24)*125)+25, (((90-latc[i])-34.2)*125)+400); //Max lat is 90, This inversion flips the chart the right way around
-    textFont(f, 16);
-    fill(0);
-    text(city[i], convert_lon(lonc[i]), convert_lat(latc[i]));
-  }
-}
-  
 void draw_survivors() {
-  draw_survivors_return();
-  draw_survivors_attack();
-}
-
-void draw_survivors_attack() {
-  stroke(135,62,35);
-  for (int i = 1; i < 48; i++) {
-    if (dir[i].equals("A")) {
-      strokeWeight(surv[i]/3000);
-      line(convert_lon(lonp[i-1]), convert_lat(latp[i-1]), convert_lon(lonp[i]), convert_lat(latp[i]));
+  int i = 46;
+  
+  while (i >= 0) {  
+    if (div[i] == div[i+1]) {
+      stroke(0,0,0);
+      if (dir[i].equals("A")) {
+        stroke(135,62,35);
+      }
+      strokeWeight(surv[i]/3500);
+      line(convert_lon(lonp[i]), convert_lat(latp[i]), convert_lon(lonp[i+1]), convert_lat(latp[i+1]));
+      
     }
-  }
-}
-
-void draw_survivors_return() {
-  stroke(0,0,0);
-  for (int i = 1; i < 48; i++) {
-    if (dir[i].equals("R")) {
-      strokeWeight(surv[i]/3000);
-      line(convert_lon(lonp[i-1]), convert_lat(latp[i-1]), convert_lon(lonp[i]), convert_lat(latp[i]));
+    else {
+      i--;
+      stroke(0,0,0);
+      if (dir[i].equals("A")) {
+        stroke(135,62,35);
+      }
+      strokeWeight(surv[i]/3500);
+      line(convert_lon(lonp[i]), convert_lat(latp[i]), convert_lon(lonp[i+1]), convert_lat(latp[i+1]));
     }
+    i--;
   }
 }
 
 float convert_lon(float lon) {
-  return ((lon-24)*125)+25;
+  return ((lon-24)*75)+80;
 }
 
 float convert_lat(float lat) {
-  return (((90-lat)-34.2)*200)+400;
-}
-
-float convert_surv_lon(float lon) {
-  return ((lon-24)*125)+25;
-}
-
-float convert_surv_lat(float lat) {
-  return (((90-lat)-52.4)*200)+400;
+  return (((90-lat)-34.2)*180)+200;
 }
