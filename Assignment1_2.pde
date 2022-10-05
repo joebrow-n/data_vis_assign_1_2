@@ -5,6 +5,7 @@ float[] lonc, latc, lont, lonp, latp;
 String[] city, mon, dir;
 int[] temp, days, surv, div;
 PFont f;
+int survivor_ratio = 3500;
 
 void setup() {
   size(1125, 795);
@@ -55,7 +56,9 @@ void setup() {
 }
 
 void draw() {
+  background(255);
   draw_survivors(); //<>//
+  draw_cities();
 }
 
 void draw_survivors() {
@@ -63,27 +66,37 @@ void draw_survivors() {
   
   while (i >= 0) {  
     if (div[i] == div[i+1]) {
-      stroke(0,0,0);
+      stroke(127, 253, 228);
       if (dir[i].equals("A")) {
-        stroke(135,62,35);
+        stroke(212, 73, 73);
       }
-      strokeWeight(surv[i]/3500);
+      strokeWeight(surv[i]/survivor_ratio);
       line(convert_lon(lonp[i]), convert_lat(latp[i]), convert_lon(lonp[i+1]), convert_lat(latp[i+1]));
       
     }
     else {
       i--;
-      stroke(0,0,0);
+      stroke(127, 253, 228);
       if (dir[i].equals("A")) {
-        stroke(135,62,35);
+        stroke(212, 73, 73);
       }
-      strokeWeight(surv[i]/3500);
+      strokeWeight(surv[i]/survivor_ratio);
       line(convert_lon(lonp[i]), convert_lat(latp[i]), convert_lon(lonp[i+1]), convert_lat(latp[i+1]));
     }
     i--;
   }
 }
 
+void draw_cities() {
+  for (int i = 0; i < 21; i++) {
+    stroke(0, 0, 0);
+    strokeWeight(10);
+    point(convert_lon(lonc[i]), convert_lat(latc[i]));
+    textFont(f);
+    text(city[i], convert_lon(lonc[i])-15, convert_lat(latc[i])-6);
+    fill(0,0,0);
+  }
+}
 float convert_lon(float lon) {
   return ((lon-24)*75)+80;
 }
