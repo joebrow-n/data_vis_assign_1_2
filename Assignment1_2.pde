@@ -1,4 +1,5 @@
-// 1.414
+import processing.pdf.*;
+
 Table table;
 int N;
 float[] lonc, latc, lont, lonp, latp;
@@ -10,7 +11,7 @@ int survivor_ratio = 3500;
 color attack, retreat;
 
 void setup() {
-  size(1270, 795);
+  size(1270, 795, PDF, "data_vis.pdf");
   
   table = loadTable("minard-data.csv", "header");
   N = table.getRowCount();
@@ -69,6 +70,10 @@ void draw() {
   draw_temp_graph();
   draw_survivors(); //<>//
   draw_cities();
+  
+  // Exit the program
+  println("Finished.");
+  exit();
 }
 
 void draw_survivors() {
@@ -140,6 +145,7 @@ void draw_temp_graph() {
     stroke(0, 0, 0);
     strokeWeight(3);
     line(convert_lon(lont[i-1]), get_offset_temp(temp[i-1]), convert_lon(lont[i]), get_offset_temp(temp[i]));
+    textFont(f);
     textAlign(CENTER);
     text(str(temp[i-1]) + " C", convert_lon(lont[i-1]), get_offset_temp(temp[i-1])-10);
     if (!mon[i-1].equals("")) {
@@ -147,6 +153,7 @@ void draw_temp_graph() {
     }
   }
   
+  textFont(f);
   text(" C", convert_lon(37.6)+40, get_offset_temp(0)-30);
   text(" 0", convert_lon(37.6)+40, get_offset_temp(0)+5);
   text("-10", convert_lon(37.6)+40, get_offset_temp(-10)+5);
