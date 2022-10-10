@@ -11,7 +11,7 @@ int survivor_ratio = 3500;
 color attack, retreat;
 
 void setup() {
-  size(1270, 795, PDF, "data_vis.pdf");
+  size(1270, 898, PDF, "data_vis.pdf");
   
   table = loadTable("minard-data.csv", "header");
   N = table.getRowCount();
@@ -66,7 +66,7 @@ void setup() {
 
 void draw() {
   background(148,209,165);
-  image(map, 0, 0);
+  image(map, 20, 0);
   draw_temp_graph();
   draw_survivors(); //<>//
   draw_cities();
@@ -161,6 +161,9 @@ void draw_temp_graph() {
   text("-30", convert_lon(37.6)+40, get_offset_temp(-30)+5);
   
   text("Temperature along Reatreat", 635, 680);
+  textFont(f);
+  textSize(30);
+  text("Size of Napoleons army through Invasion of Russia", 635, 30);
 }
 
 float get_offset_temp(float temperature) {
@@ -168,7 +171,7 @@ float get_offset_temp(float temperature) {
 }
 
 float convert_lon(float lon) {
-  return ((lon-24)*81)+80;
+  return ((lon-24)*81)+100;
 }
 
 float convert_lat(float lat) {
