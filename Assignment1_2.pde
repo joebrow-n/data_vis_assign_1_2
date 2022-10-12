@@ -66,7 +66,7 @@ void setup() {
 
 void draw() {
   background(148,209,165);
-  image(map, 20, 0);
+  image(map, 20, 0+100);
   draw_temp_graph();
   draw_survivors(); //<>//
   draw_cities();
@@ -86,7 +86,7 @@ void draw_survivors() {
         stroke(attack);
       }
       strokeWeight(surv[i]/survivor_ratio);
-      line(convert_lon(lonp[i]), convert_lat(latp[i]), convert_lon(lonp[i+1]), convert_lat(latp[i+1]));
+      line(convert_lon(lonp[i]), convert_lat(latp[i])+100, convert_lon(lonp[i+1]), convert_lat(latp[i+1])+100);
       
     }
     else {
@@ -96,7 +96,7 @@ void draw_survivors() {
         stroke(attack);
       }
       strokeWeight(surv[i]/survivor_ratio);
-      line(convert_lon(lonp[i]), convert_lat(latp[i]), convert_lon(lonp[i+1]), convert_lat(latp[i+1]));
+      line(convert_lon(lonp[i]), convert_lat(latp[i])+100, convert_lon(lonp[i+1]), convert_lat(latp[i+1])+100);
     }
     i--;
   }
@@ -106,11 +106,11 @@ void draw_cities() {
   for (int i = 0; i < 21; i++) {
     stroke(255, 255, 255);
     strokeWeight(10);
-    point(convert_lon(lonc[i]), convert_lat(latc[i]));
+    point(convert_lon(lonc[i]), convert_lat(latc[i])+100);
     
     textFont(f);
     textAlign(CENTER);
-    text(city[i], convert_lon(lonc[i]), convert_lat(latc[i])-7);
+    text(city[i], convert_lon(lonc[i]), convert_lat(latc[i])-7+100);
     fill(255, 255, 255);
   }
 }
@@ -119,15 +119,15 @@ void draw_temp_graph() {
   //Draws the horizontal lines for the temperature graph
   stroke(54, 69, 79);
   strokeWeight(2);
-  line(convert_lon(26.75), 650, convert_lon(37.6), 650);
-  line(convert_lon(26.75), get_offset_temp(-20), convert_lon(37.6), get_offset_temp(-20));
-  line(convert_lon(26.75), get_offset_temp(-10), convert_lon(37.6), get_offset_temp(-10));
-  line(convert_lon(26.75), get_offset_temp(0), convert_lon(37.6), get_offset_temp(0));
+  line(convert_lon(26.75), 650+100, convert_lon(37.6), 650+100);
+  line(convert_lon(26.75), get_offset_temp(-20)+100, convert_lon(37.6), get_offset_temp(-20)+100);
+  line(convert_lon(26.75), get_offset_temp(-10)+100, convert_lon(37.6), get_offset_temp(-10)+100);
+  line(convert_lon(26.75), get_offset_temp(0)+100, convert_lon(37.6), get_offset_temp(0)+100);
   
   //The following are the downward lines for the temp that for some reason were not covered in the for loop
-  line(convert_lon(26.75), convert_lat(54.3), convert_lon(26.75), get_offset_temp(-30)); 
-  line(convert_lon(27.2), convert_lat(54.4), convert_lon(27.2), get_offset_temp(-24));
-  line(convert_lon(37.6), convert_lat(55.8), convert_lon(37.6), get_offset_temp(-30));
+  line(convert_lon(26.75), convert_lat(54.3)+100, convert_lon(26.75), get_offset_temp(-30)+100); 
+  line(convert_lon(27.2), convert_lat(54.4)+100, convert_lon(27.2), get_offset_temp(-24)+100);
+  line(convert_lon(37.6), convert_lat(55.8)+100, convert_lon(37.6), get_offset_temp(-30)+100);
   
   //For loop to draw downward lines from army path
   for (int i = 1; i < 10; i++) {
@@ -137,33 +137,33 @@ void draw_temp_graph() {
     strokeWeight(2);
     for (int j = 0; j < 21; j++) {
       if ((lont[i] == lonc[j]) && lont[i] != 36) {
-        line(convert_lon(lont[i]), convert_lat(latc[j]), convert_lon(lont[i]), get_offset_temp(temp[i]));
+        line(convert_lon(lont[i]), convert_lat(latc[j])+100, convert_lon(lont[i]), get_offset_temp(temp[i])+100);
         break;
       }
     }
     //Draws the actual temperature lines
     stroke(0, 0, 0);
     strokeWeight(3);
-    line(convert_lon(lont[i-1]), get_offset_temp(temp[i-1]), convert_lon(lont[i]), get_offset_temp(temp[i]));
+    line(convert_lon(lont[i-1]), get_offset_temp(temp[i-1])+100, convert_lon(lont[i]), get_offset_temp(temp[i])+100);
     textFont(f);
     textAlign(CENTER);
-    text(str(temp[i-1]) + " C", convert_lon(lont[i-1]), get_offset_temp(temp[i-1])-10);
+    text(str(temp[i-1]) + " C", convert_lon(lont[i-1]), get_offset_temp(temp[i-1])+20+100);
     if (!mon[i-1].equals("")) {
-      text(mon[i-1] + " " + days[i-1], convert_lon(lont[i-1]), get_offset_temp(temp[i-1])+10);
+      text(mon[i-1] + " " + days[i-1], convert_lon(lont[i-1]), get_offset_temp(temp[i-1])+40+100);
     }
   }
   
   textFont(f);
-  text(" C", convert_lon(37.6)+40, get_offset_temp(0)-30);
-  text(" 0", convert_lon(37.6)+40, get_offset_temp(0)+5);
-  text("-10", convert_lon(37.6)+40, get_offset_temp(-10)+5);
-  text("-20", convert_lon(37.6)+40, get_offset_temp(-20)+5);
-  text("-30", convert_lon(37.6)+40, get_offset_temp(-30)+5);
+  text(" C", convert_lon(37.6)+40, get_offset_temp(0)-30+100);
+  text(" 0", convert_lon(37.6)+40, get_offset_temp(0)+5+100);
+  text("-10", convert_lon(37.6)+40, get_offset_temp(-10)+5+100);
+  text("-20", convert_lon(37.6)+40, get_offset_temp(-20)+5+100);
+  text("-30", convert_lon(37.6)+40, get_offset_temp(-30)+5+100);
   
-  text("Temperature along Reatreat", 635, 680);
+  text("Temperature along Reatreat", 635, 680+100);
   textFont(f);
   textSize(30);
-  text("Size of Napoleons army through Invasion of Russia", 635, 30);
+  text("Size of Napoleons army through Invasion of Russia", 635, 60);
 }
 
 float get_offset_temp(float temperature) {
